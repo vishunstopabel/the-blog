@@ -52,6 +52,7 @@ function Login(){
                 theme: "colored",
           
                 });
+                console.log("hello")
                 dispathch(removeloader())
                 
             }

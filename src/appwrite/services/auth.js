@@ -2,11 +2,11 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import conf from '../../../conf/config';
 import { Client, Account, ID } from "appwrite";
-import { removeloader } from "../../store/loaderdata"
-import { useDispatch } from "react-redux"
-const {endpoint,projectid}=conf
-const dispatch=useDispatch()
-export class AuthService {
+import { removeloader } from "../../store/loaderdata";
+
+const { endpoint, projectid } = conf;
+
+class AuthService {
     client = new Client();
     account;
 
@@ -15,17 +15,15 @@ export class AuthService {
             .setEndpoint(endpoint)
             .setProject(projectid);
         this.account = new Account(this.client);
-            
     }
 
-    async createAccount({email,password,name}) {
+    async createAccount({ email, password, name }, dispatch) {
         try {
-            const userAccount = await this.account.create(ID.unique() ,email, password,name )
-            ;if(userAccount){
-               return this.login({email,password})
-           
+            const userAccount = await this.account.create(ID.unique(), email, password, name);
+            if (userAccount) {
+                return this.login({ email, password }, dispatch);
             }
-            return userAccount
+            return userAccount;
         } catch (error) {
             toast.warn(error.message, {
                 position: "top-right",
@@ -36,15 +34,14 @@ export class AuthService {
                 draggable: true,
                 progress: undefined,
                 theme: "colored",
-                
-                });
-                dispatch(removeloader())
+            });
+            dispatch(removeloader());
         }
     }
 
-    async login({email, password}) {
+    async login({ email, password }, dispatch) {
         try {
-            return await  this.account.createEmailPasswordSession(email,password);
+            return await this.account.createEmailPasswordSession(email, password);
         } catch (error) {
             toast.warn(error.message, {
                 position: "top-right",
@@ -55,9 +52,8 @@ export class AuthService {
                 draggable: true,
                 progress: undefined,
                 theme: "colored",
-               
-                });
-                dispatch(removeloader())
+            });
+            dispatch(removeloader());
         }
     }
 
@@ -65,36 +61,36 @@ export class AuthService {
         try {
             return await this.account.get();
         } catch (error) {
-            console.log("Appwrite serive :: getCurrentUser :: error", error);
+            console.error("Appwrite service :: getCurrentUser :: error", error);
         }
-
         return null;
     }
 
     async logout() {
-
         try {
             await this.account.deleteSessions();
         } catch (error) {
-            console.log("Appwrite serive :: logout :: error", error);
+            console.error("Appwrite service :: logout :: error", error);
         }
     }
-    async adddetails(userid){
-            try {
-               await this.account.updatePrefs({userid})
-            } catch (error) {
-                
-            }
-    }
-    async updatename(username){
+
+    async addDetails(userid) {
         try {
-            await this.account.updateName(username)
+            await this.account.updatePrefs({ userid });
         } catch (error) {
-            console.log("error")
+            console.error("Appwrite service :: addDetails :: error", error);
+        }
+    }
+
+    async updateName(username) {
+        try {
+            await this.account.updateName(username);
+        } catch (error) {
+            console.error("Appwrite service :: updateName :: error", error);
         }
     }
 }
 
 const authService = new AuthService();
 
-export default authService
+export default authService;

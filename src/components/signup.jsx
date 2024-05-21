@@ -40,6 +40,7 @@ function Signup(){
                 theme: "colored",
           
                 });
+                console.log("hello")
                 dispatch(removeloader())
             }
         console.log(userdata)

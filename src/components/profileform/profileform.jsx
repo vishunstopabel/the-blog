@@ -47,7 +47,7 @@ function Profileform({userdata}){
             const slug=data.name.replace(" ","-")
             
             console.log(slug)
-          await  authService.updatename(slug)
+          await  authService.updateName(slug)
 
             const file= await appwriteService.uploadfile(data.image[0])
             if(file){
