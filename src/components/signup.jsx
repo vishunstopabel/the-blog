@@ -22,7 +22,9 @@ function Signup(){
                     const data=await authservices.getCurrentUser()
                     if(data){
                       dispatch(login(data));
+                      window.location.reload()
                           navigate("/")
+                          
                           dispatch(removeloader())
                     }
                 }
