@@ -2,8 +2,10 @@ import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import conf from '../../../conf/config';
 import { Client, Account, ID } from "appwrite";
-
+import { removeloader } from "../../store/loaderdata"
+import { useDispatch } from "react-redux"
 const {endpoint,projectid}=conf
+const dispatch=useDispatch()
 export class AuthService {
     client = new Client();
     account;
@@ -21,6 +23,7 @@ export class AuthService {
             const userAccount = await this.account.create(ID.unique() ,email, password,name )
             ;if(userAccount){
                return this.login({email,password})
+           
             }
             return userAccount
         } catch (error) {
@@ -35,6 +38,7 @@ export class AuthService {
                 theme: "colored",
                 
                 });
+                dispatch(removeloader())
         }
     }
 
@@ -53,6 +57,7 @@ export class AuthService {
                 theme: "colored",
                
                 });
+                dispatch(removeloader())
         }
     }
 

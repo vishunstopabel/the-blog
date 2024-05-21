@@ -1,9 +1,11 @@
-
+import { removeloader } from "../../store/loaderdata"
+import { useDispatch } from "react-redux"
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { Client, Databases, Storage, Query, ID } from "appwrite";
 import conf from '../../../conf/config';
 const {endpoint,projectid,databaseid,collectionid,collectionid2,bucketid}=conf
+const dispatch=useDispatch()
 export class Service{
     client = new Client()
     Databases;
@@ -40,6 +42,7 @@ export class Service{
             theme: "colored",
           
             });
+            dispatch(removeloader())
     }
 
    }
@@ -66,7 +69,8 @@ export class Service{
             progress: undefined,
             theme: "colored",
           
-            })
+            }) 
+             dispatch(removeloader())
     }
    }
    async delectpost(slug){
@@ -89,6 +93,7 @@ export class Service{
             theme: "colored",
           
             })
+            dispatch(removeloader())
     }
 
    }
@@ -161,6 +166,7 @@ export class Service{
             theme: "colored",
           
             })
+            dispatch(removeloader())
     }
    }
    async delectfile(fileid){
@@ -194,7 +200,18 @@ export class Service{
             }
            ) 
         } catch (error) {
-            console.log(error)
+            toast.error(error.message, {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+              
+                })
+            dispatch(removeloader())
         }
    }
    updateprofile(slug,{name,imageId,userId,bio,status}){
@@ -206,7 +223,18 @@ export class Service{
         }
     )
    } catch (error) {
-    console.log(error)
+    toast.error(error.message, {
+        position: "top-right",
+        autoClose: 5000,
+        hideProgressBar: false,
+        closeOnClick: true,
+        pauseOnHover: true,
+        draggable: true,
+        progress: undefined,
+        theme: "colored",
+      
+        })
+        dispatch(removeloader())
    }
    }
    async getuser(slug){
