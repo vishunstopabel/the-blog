@@ -17,11 +17,11 @@ class AuthService {
         this.account = new Account(this.client);
     }
 
-    async createAccount({ email, password, name }, dispatch) {
+    async createAccount({ email, password, name }, ) {
         try {
             const userAccount = await this.account.create(ID.unique(), email, password, name);
             if (userAccount) {
-                return this.login({ email, password }, dispatch);
+                return this.login({ email, password });
             }
             return userAccount;
         } catch (error) {
@@ -39,7 +39,7 @@ class AuthService {
         }
     }
 
-    async login({ email, password }, dispatch) {
+    async login({ email, password }) {
         try {
             return await this.account.createEmailPasswordSession(email, password);
         } catch (error) {
