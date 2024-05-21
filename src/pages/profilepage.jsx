@@ -43,11 +43,11 @@ function Profilepage(){
   
     if (user){return <>
             <div className="flex flex-wrap flex-col">
-                <div className="flex justify-center gap-32 max-[600px]:gap-6">
+                <div className="flex justify-center gap-32 max-[600px]:gap-0">
                 <div>
                     {
                         user.imageId?<img src={appwriteService.previewfile(user.imageId)} alt={"fsa"}
-                        className='rounded-full w-48 h-48 max-[600px]:w-20max-[600px]:h-20' />:(null)
+                        className='rounded-full w-48 h-48 max-[600px]:w-32 max-[600px]:h-32' />:(null)
                     }
                 </div>
                 <div>

@@ -148,7 +148,7 @@ function Three() {
                         <p>Single page</p>
                     </div>
                     <div className="flex items-center p-2 rounded-lg cursor-pointer">
-                        <Share/>
+                        <Share url={window.location.href}/>
                         <p>Share</p>
                     </div>
                     <div className="flex items-center p-2 rounded-lg cursor-pointer">
