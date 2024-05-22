@@ -91,7 +91,9 @@ function Profileform({userdata}){
        className="md-4"
        {...register("bio",{required:false})}
         />
+        <label htmlFor="Select">Status:</label>
        <Select
+            
           options={["single", "commited","maried"]}
          label="Status"
           className="mb-4"
